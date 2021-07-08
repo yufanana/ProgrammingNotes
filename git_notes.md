@@ -9,7 +9,7 @@ ____
 `git <verb> --help` get documentation about \<verb>. <br>
 `touch <file_name>` creates the specified file. <br>
 
-![alt text](https://github.com/yufanana/ProgrammingNotes/blob/520f6a226c0c809f9236fedd95cd26f8cdd4a154/git_map.jpg = 250x)
+<img src="https://github.com/yufanana/ProgrammingNotes/blob/520f6a226c0c809f9236fedd95cd26f8cdd4a154/git_map.jpg" width="200">
 
 ## Set Config Values
 Think of this as logging into your GitHub account. <br>
