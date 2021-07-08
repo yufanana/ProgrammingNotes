@@ -9,6 +9,8 @@ ____
 `git <verb> --help` get documentation about \<verb>. <br>
 `touch <file_name>` creates the specified file. <br>
 
+![alt text](https://github.com/yufanana/ProgrammingNotes/blob/520f6a226c0c809f9236fedd95cd26f8cdd4a154/git_map.jpg)
+
 ## Set Config Values
 Think of this as logging into your GitHub account. <br>
 `git config --list` lists all variables set in the config file. <br>
@@ -32,7 +34,7 @@ Can add a folder directory into `.gitignore` as `/<folder directory>`
 `git reset <file_name>` removes file from the staging area. <br>
 `git reset` removes everything from the staging area. <br>
 
-`git commit -m 'Added new section` commits to the branch. <br>
+`git commit -m "Added new section"` commits to the branch. <br>
 `git log` shows the commits just made. <br>
 `git push` pushes to the remote repo. <br>
 
