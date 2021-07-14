@@ -76,6 +76,10 @@ Once merge is successful, <br>
 `git branch -d <branch_name>` to delete branch locally. <br>
 `git push origin --delete <branch_name>` to delete branch in remote repo. <br>
 
+## Submodules
+A Git repo inside another git repo.<br>
+`git submodule add <url> ` to add the repo as a submodule to the local repo. <br>
+It clones the current version/commit of the git repo. <br>
 
 ## Misc
 *Esc* + `:wq` <br>
