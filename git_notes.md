@@ -17,6 +17,10 @@ Think of this as logging into your GitHub account. <br>
 `git config --global user.name 'yufan-fong'` <br>
 `git config --global user.email 'yufan.fong@gmail.com'` <br>
 
+## Create New Repository
+Go to GitHub web and create a new repositary there. <br>
+Follow the instructions there to add origin.
+
 ## Git Ignore
 `touch .gitignore` to create the *gitignore* text. </br>
 Write the names of the files for *git* to ignore inside the *gitignore* file.
@@ -30,9 +34,11 @@ Can add a folder directory into `.gitignore` as `/<folder directory>`
 `git status` lists which files are staged, unstaged, modified. <br>
 
 `git add <file_name>` adds the specified file to the staging area. <br>
-`git add .` adds all the files in the folder to the staging area. Synonymous with `git stage`. <br>
+`git add .` adds all the files in the folder to the staging area. Synonymous with `git stage`.
+
 `git reset <file_name>` removes file from the staging area. <br>
 `git reset` removes everything from the staging area. <br>
+`git reset --soft HEAD~1` to remove everything from the commit into the staging area.
 
 `git commit -m "Added new section"` commits to the branch. <br>
 `git log` shows the commits just made. <br>
