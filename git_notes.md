@@ -38,6 +38,18 @@ Can add a folder directory into `.gitignore` as `/<folder directory>`
 `git log` shows the commits just made. <br>
 `git push` pushes to the remote repo. <br>
 
+## Procedure from new local Repo to Remote Repo
+
+First, create a new repo on GitHub without any README, license or gitignore files.
+
+```
+git init -b main
+git add .
+git commit -m "Initial commit"
+git remote set-url origin https://github.com/username/repository.git
+git push -u origin main
+```
+
 ## Procedure for Remote to Local Repo
 `git clone <url> <destination_dir>` make a copy of it at the specified local directory. <br>
 Use `.` to refer to the current directory.

@@ -17,11 +17,14 @@ After installation of RPi OS, open the terminal.
 
 `hostname -I` to get IP address.
 
+`sudo apt-get install code` to install Visual Studio Code.
+
 ## Image Backup
 Based on instructions from [magpi](https://magpi.raspberrypi.org/articles/back-up-raspberry-pi).
 
 __Copy SD Card Image__ <br>
-RPi Image can be backed up on Windows using WindowsDiskImager.
+RPi Image can be backed up on Windows using Win32 DiskImager. <br>
+Refer to this [post](https://www.raspberrypi.org/forums/viewtopic.php?t=26463) for the simple backup process.
 
 OR
 
@@ -36,6 +39,12 @@ sudo apt-get install deja-dup
 Higher screen resolution will impair processing power.
 
 `df -h` to view *disk free* in *human* readable view.
+
+Create new shortcut (symbolic link) on RPi Desktop
+```
+cd ~/Desktop
+ln -s /path/to/directory LinkName
+```
 
 ## GPIO
 <img src="./notes_images/rpi_gpio_pinout.jpg" height=200>
