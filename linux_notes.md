@@ -207,3 +207,14 @@ Variables created are specific to the session.
 - `sudo netstat -tulpn` or `which sshd`
 - `ip a` to obtain the IP address
 - `ssh user@<IP>` log into the specified user at the specified IP address
+
+## Common Set Up Things to Do
+`sudo apt install terminator` <br>
+`sudo apt install code` May need to refer to VSC website for additional steps <br>
+`sudo apt install git` <br>
+`sudo apt install python3-pip`
+
+
+
+Go to .bashrc and add `alias python='python3'`
+

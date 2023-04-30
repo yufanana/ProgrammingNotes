@@ -1,6 +1,9 @@
-Summary of keyboard shortcuts for Visual Studio Code to improve productivity 
+# VS Code Keyboard Shortcuts
 
-*Rely more on keyboard instead of the mouse to be quicker.*
+Author: __*yufanana*__
+
+> *Rely more on keyboard instead of the mouse to be quicker.*
+____
 
 ![VSC Keyboard Shortcuts Windows](vsc-keyboard-shortcuts-windows.png)
 
@@ -8,14 +11,15 @@ Summary of keyboard shortcuts for Visual Studio Code to improve productivity
 `Ctrl + P`: command palette <br>
 By default, it shows a list of recently opened files <br>
 
-Type `>` to access to all the VSC commands <br>
-Type `@` to view all the symbols used in the file <br>
-Type `#` for the global symbol search <br>
+- Type `>` to access to all the VSC commands <br>
+- Type `@` to view all the symbols used in the file <br>
+- Type `#` for the global symbol search <br>
 OR `Ctrl + Shift + .` to view all the symbols used in the file
 
 ## Navigation
 `Ctrl + G` to go the code line <br>
-`Ctrl + D` to select all occurrences of the current word. Use Ctrl+D again to edit all occurrences simultaneously. <br>
+`Ctrl + D` to select all occurrences of the current word. <br>
+Use *Ctrl+D* again to edit all occurrences simultaneously. <br>
 
 ## Basic Editing
 `Alt + Up/Down` to move the line up/down <br>
@@ -37,6 +41,7 @@ OR `Ctrl + Shift + .` to view all the symbols used in the file
 `Ctrl + Tab` to open the next tab <br>
 `Ctrl + Shif + Tab` to open the previous tab <br>
 `Ctrl + W` to close editor <br>
+`Ctrl + B` to toggle file explorer <br>
 
 ## Debug
 `F9` to insert toggle breakpoint <br>
