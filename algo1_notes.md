@@ -184,11 +184,16 @@ Binary search <a id="2.2"></a>
 
 ```
 BINARYSEARCH(A,i,j,x)
-    if j < i return false
+    if j < i 
+        return false
+        
     m = ⎣(i+j)/2⎦
-    if A[m] = x return true
-    elseif A[m] < x return BINARYSEARCH(A,m+1,j,x)
-    else return BINARYSEARCH(A,i,m-1,x) // A[m] > x
+    if A[m] = x 
+        return true
+    elseif A[m] < x 
+        return BINARYSEARCH(A,m+1,j,x)
+    else 
+        return BINARYSEARCH(A,i,m-1,x) // A[m] > x
 ```
 
 Insertion Sort <a id="2.3"></a>
@@ -204,6 +209,18 @@ INSERTIONSORT(A, n)
             swap A[j] and A[j-1]
             j = j - 1
 ```
+```py
+def insert_sort(A, n):
+    for i in range(1, n-1):
+        j = i
+        while j > 0 and (A[j-1] > A[j]):
+            # swap A[j] and A[j-1]
+            temp = A[j]
+            A[j] = A[j-1]
+            A[j-1] = temp
+            j = j - 1
+```
+
 Merge
 - $O$(n) time, n=|A1|+|A2|
 
@@ -222,7 +239,7 @@ MERGESORT(A,i,j)
         MERGE(A, i, m, j)
 ```
 ```python
-
+### Codejudge question
 """
 Find maximum number of rocks given a total weight.
 
@@ -270,11 +287,11 @@ def merge(A, i, m, j):
         r += 1
 
 
-def get_max_stones(N, W):
-    merge_sort(N, 0, len(N)-1)
+def get_max_stones(rocks, W):
+    merge_sort(rocks, 0, len(N)-1)
     count = 0
     total = 0
-    for rock in N:
+    for rock in rocks:
         total += rock
         if total <= W:
             count += 1
@@ -310,10 +327,11 @@ Time: exponential > polynomial > linear > log
 Experimental analysis, doubling technique: double input to measure time increase
 
 
-Weekplan 3 Codejudge
 ```python
+### Codejudge
+
 """
-Maximal subarray sum.
+Maximal continuous subarray sum.
 
 Input (stdin)
 7
@@ -342,11 +360,12 @@ print(best)
 [Go to top](#top)
 
 Stack: last in first out
-- push, pop, isEmpty: $\Theta$(1)
-- space: $\Theta$(N)
-- top variable, capacity N
+- push, pop, isEmpty: $\Theta$(1) time
+- top variable, capacity N: $\Theta$(N) space
 
 ```python
+### Codejudge
+
 """
 Push, pop operations.
 
@@ -391,9 +410,8 @@ for step in operations:
 ```
 
 Queue: first in first out
-- enqueue, dequeue, isEmpty: $\Theta$(1)
-- space: $\Theta$(N)
-- head, tail variable, capacity N
+- enqueue, dequeue, isEmpty: $\Theta$(1) time
+- head, tail variable, capacity N: $\Theta$(N) space
 
 ```python
 """
@@ -453,11 +471,17 @@ Adjacency matrix
 - neighbours: $O$(n)
 - space: $O$(n^2)
 - `adj = [[0]*N for i in range(N)]`
+- `adj[2].append((3,7))` for weighted edge of 7 from 2->3
 
 Adjacency list
 - adjacent, insert, neighbours: $O$(deg(v))
 - space: $O$(n+m)
 - `adj = [[] for i in range(n)]`
+
+Edge list
+- contains all edges of a graph in some order
+- `edges = []`
+- `edges.append((1,2))`
 
 Depth-First Search <a id="5.1"></a>
 - nodes: unmarked/marked
@@ -482,6 +506,8 @@ dfs(0)
 ```
 
 ```python
+### Codejudge
+
 '''
 Check if a path exists between buildings.
 
@@ -527,7 +553,7 @@ def reachable(adj, a, b):
     return False        # when stack becomes empty
 
 # n, m, a, b = [int(i) for i in input().split()]
-n, m, a , b = map(int, input().split(" "))
+n, m, a, b = map(int, input().split(" "))
 
 # use 1-indexing to mirror problem, 0th element is unused
 n = n + 1
@@ -548,12 +574,12 @@ else:
 
 
 Breadth-First Search <a id="5.2"></a>
-- nodes: unmarked/marked
+- nodes can be unmarked or marked
 - visit nodes in queue
-- add neighbours to queue
-- $O$(deg(v)) on each vertex
+- add neighbours of visited node to queue
+- $O$(deg(v)) time spent on each vertex
 - total time: $O$(n+m)
-- assigns layers
+- assigns layers/distances to each node
 - finds length of shortest path to all other vertices
 
 ```
@@ -569,6 +595,27 @@ BFS(s)
             u.π = v
             Q.ENQUEUE(u)
 ```
+```python
+from collections import deque
+q = deque()
+visited = [False for i in range(N)]
+distance = [-1 for i in range(N)]
+
+s = 0       # source
+visited[s] = True
+distance[s] = 0
+q.append(s)
+while q:
+    v = q.popleft()
+    # process node v
+    for u in adj[v]:
+        if (visited[u]):
+            continue
+        visited[u] = True
+        distance[u] = distance[v]+1
+        q.append(u)
+```
+
 Bipartite (refer to slides/notes) <a id="5.3"></a> <br>
 Connectivity (refer to slides/notes)
 
@@ -576,20 +623,22 @@ Connectivity (refer to slides/notes)
 [Go to top](#top)
 
 Adjacency matrix
-- PointsTo, Insert: $O$(1)
-- Neighbours: $O$(n)
+- PointsTo, Insert: $O$(1) time
+- Neighbours: $O$(n) time
 
 Adjacency list
-- PointsTo, Insert, Neighbours: $O$(deg(v))
+- PointsTo, Insert, Neighbours: $O$(deg(v)) time
 
 Topological Sorting <a id="6.1"></a>
 - order all vertices such that all edges are directed to the right
 - find v with in-degree=0
 - output v and recurse on graph with v removed
-- reverse graph: $O$(n^2)
-- maintain in-degree table: $O$(n+m)
+- reverse graph: $O$(n^2) time
+- maintain in-degree table: $O$(n+m) time
 
 ```python
+### Codejudge
+
 '''
 Find minimum number of semesters needed to complete all courses given the course dependencies.
 
@@ -640,10 +689,10 @@ Directed acyclic graph
 - has topological sorting
 
 Strongly connected components
-- path from v to u, u to v
+- path exits from `v` to `u`, and from `u` to `v`
 
 Implicit graphs <a id="6.2"></a>
-- implicit representation, generated graph on-the-go
+- implicit representation, generates graph on-the-go
 
 ## Week 7: Priority Queues<a id="7"></a>
 [Go to top](#top)
@@ -676,8 +725,8 @@ Heap <a id="7.3"></a>
     - Top-down construction
     - Bottom-up construction
 - BubbleUp, BubbleDown: $O$(log n) time
-- ExtractMax, IncreaseKey, Insert: $O$(log n)
-- Max: $O$(1)
+- ExtractMax, IncreaseKey, Insert: $O$(log n) time
+- Max: $O$(1) time
 
 ```
 MAX()
@@ -701,6 +750,8 @@ INCREASEKEY(x,k)
 ```
 
 ```python
+### Codejudge
+
 """
 Delegate tasks ID based on the task difficulty.
 
@@ -723,6 +774,7 @@ Expected Output
 def swap(parent_idx, child_idx, heap, satellite):
     if 0 < parent_idx < child_idx < len(heap):
         if heap[parent_idx] < heap[child_idx]:
+            # swap parent and child
             temp = heap[parent_idx]
             heap[parent_idx] = heap[child_idx]
             heap[child_idx] = temp
@@ -730,7 +782,6 @@ def swap(parent_idx, child_idx, heap, satellite):
             temp = satellite[parent_idx]
             satellite[parent_idx] = satellite[child_idx]
             satellite[child_idx] = temp
-
             return True
     return False
 
@@ -775,7 +826,7 @@ N = int(input())
 diff_array = [None]     # heap array
 id_array = [None]       # satellite array
 for i in range(N):
-    command = input().split(" ")    # "N id difficulty" 
+    command = input().split(" ")    # [N,id,difficulty]
     if command[0] == "N":
         key = int(command[2])
         sat = int(command[1])
@@ -820,6 +871,8 @@ UNION(i,j):
 ```
 
 ```python
+### Codejudge
+
 """
 Input (stdin)
 5
@@ -872,7 +925,7 @@ for _ in range(M):
 Quick Union <a id="8.2"></a>
 - root of tree is the representative
 - Find: follow path to root
-- Union: make root of one tree become child of another rooti
+- Union: make root of one tree become child of another root
 - Init: $O$(n) time
 - Union, Find: $O$(d) time
 
@@ -895,6 +948,8 @@ UNION(i,j):
 ```
 
 ```python
+### Codejudge
+
 """
 Input (stdin)
 5
@@ -962,6 +1017,8 @@ UNION(i,j):
 ```
 
 ```python
+### Codejudge
+
 """
 Input (stdin)
 5
@@ -1024,6 +1081,8 @@ Path Compression <a id="8.4"></a>
 - Find, Union: $O$(n+m ackermanns(m,n))
 
 ```python
+### Codejudge
+
 """
 Input (stdin)
 5
@@ -1089,6 +1148,8 @@ Dynamic Connectivity
 - Init, Connected, Insert
 
 ```python
+### Codejudge
+
 """
 Add computers to a computer network, check if computers are connected.
 
@@ -1185,6 +1246,8 @@ KRUSKAL(G)
 ```
 
 ```python
+### Codejudge
+
 """
 Find the minimum cost of connecting cables between buildings, given the pairwise prices of connecting two buildings.
 
@@ -1291,7 +1354,34 @@ RELAX(u,v)
         v.π = u
 ```
 
+`heapq` implements a priority queue.
+
 ```python
+from heapq import heappush, heappop
+
+# Initialise
+processed = [False]*N
+distance = [INF]*N
+q = []
+
+# Start from s
+distance[s] = 0
+heappush(q, (0,s))
+while (len(q) > 0):
+    d, a = heappop(q)
+    if (processed[a]):
+        continue
+    processed[a] = true
+    for (b,w) in adj[a]:
+        if (distance[a] + w < distance[b]):
+            distance[b] = distance[a] + w
+            heappush(q,(distance[b],b))
+
+```
+
+```python
+### Codejudge
+
 """
 Given a network of cables and signal loss through each cable, find best way to route cables with max signal quality.
 
@@ -1318,7 +1408,6 @@ for _ in range(M):
     adj_list[v].append((u,w))
 
 source = 1
-
 # Dijkstra's Algorithm
 d = (N+1)*[None]        # dist estimates, 0-index unused
 pq = [(0,source)]
@@ -1330,10 +1419,10 @@ while pq:
         d[vertex] = dist
         for u,w in adj_list[vertex]:
             heappush(pq, (dist+w,u))
-            # heappush(pq, (dist + w + 5, u)) # for exercis
+            # heappush(pq, (dist + w + 5, u)) # for exercise 2
 
 print(d[1:])
-# print(0,*distance[2:]) # for exercise 2
+# print(0,*d[2:]) # for exercise 2
 
 ```
 
@@ -1341,6 +1430,16 @@ Shortest Paths on DAGs <a id="10.2"></a>
 - sort vertices in topological order
 - for each vertex, relax all outgoing edges
 - Total time: $O$(m+n)
+
+Bellman-Ford Algorithm
+
+```python
+distance = [INF]*N
+distance[x] = 0;
+for i in range(n-1):
+    for (a, b, w) in edges:
+        distance[b] = min(distance[b], distance[a] + w)
+```
 
 
 ## Week 11: Search Trees<a id="11"></a>
