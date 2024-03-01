@@ -5,50 +5,112 @@ Author: __*yufanana*__
 ____
 
 ## General
-`git <verb>` <br>
-`git <verb> --help` get documentation about \<verb>. <br>
-`touch <file_name>` creates the specified file. <br>
+
+`git <verb>` 
+
+`git <verb> --help` get documentation about \<verb>.
+
+From 2023, you will need to add SSH keys generated on your computer to your GitHub account in order to access the repositories.
+
+## Best Practices
+
+- Main branches should be stable and ready for production. Changes are only merge after review and testing.
+- Use hyphens and slashes as separators
+    - `feature/new-user-login`
+- Possible branch naming conventions, choose one.
+    - start with group words like `feature/`, `bugfix/`, `wip/`, `exp/`
+    - include author names `john/add-bot`
+
+## Staging
 
 <img src="./notes_images/git_map.jpg" width="500">
 
-## Set Config Values
-Think of this as logging into your GitHub account. <br>
-`git config --list` lists all variables set in the config file. <br>
-`git config --global user.name 'yufan-fong'` <br>
-`git config --global user.email 'yufan.fong@gmail.com'` <br>
+<br>
 
-## Create New Repository
-Go to GitHub web and create a new repositary there. <br>
-Follow the instructions there to add origin.
+| Basic Commands     | Description                                            |
+| ------------------ | ------------------------------------------------------ |
+| `git status`       | Lists which files are staged, unstaged, modified.      |
+| `git add file.py`  | Adds the file to the staging area.                     |
+| `git add .`        |  adds all the files in the folder to the staging area. |
+| `git stage`        | Synonymous with `git add .`                            |
+| `git commit -m "commit msg"`| Commit changes to the current branch.|
+| `git push` <br> `git push origin main` <br> `git push other_repo feature1`    | Pushes commits to the branch in remote repository.      |
+| `git pull` <br> `git pull origin main` <br> `git pull other_repo main` | Pull/download changes from the remote origin. |
+
+Note: `origin` is the name of the remote repository. See section on Git Remote.
+
+## Manipulating Commits
+
+This section should be skipped if you are new to Git.
+
+| Advanced Commands     | Description                                         |
+| ------------------ | ------------------------------------------------------ |
+|`git diff`           | Shows the changes made.                               |
+| `git reset`         | Removes everything from the staging area.             |
+| `git reset file.py` | Removes file only from the staging area.              |
+|`git reset --soft HEAD~1` | Removes everything from the commit into the staging area. |
+|`git log` <br> `git log --oneline` <br> `git log --oneline --graph` | Show the history of commits as oneline or a tree graph |
+|`git log --after="2021-7-1"` <br> `git log --before="2021-6-1"` <br> `git log --author="John"` <br> `git log --grep="fix"` <br> `git log -- file.py`| Search for commits based on search criteria (can be combined). |
+|`git commit --amend` <br> `git commit --amend -m "updated msg"` <br> `git commit --amend --no-edit`| Modify the most recent commit.|
+|`git reflog`         | Open the reference log of important actions         |
+|`git branch recover e5b19e4`  | Create new branch starting with the state hash.|
+|`git cherry-pick 26bf1b48`   | To move a single commit to the current branch.  |
+
+## Git Clone
+
+Go to the GitHub website, select Clone, and copy the https or SSH URL.
+
+- https URL: pushing to origin not allowed
+- SSH URL:requires SSH keys added to your GitHub account, write permissions if the user has been added as a ccontributor.
+
+`git clone <url>` makes a copy in the current directory.
+
+## Git Remote
+
+Go to GitHub web and create a new repositary there. Follow the instructions there to add origin.
+
+| Commands           | Description                                            |
+| ------------------ | ------------------------------------------------------ |
+| `git remote -v`      | View the remote origins added.   | 
+|`git remote add <origin_name> <url>` | Add a new remote. |
+|`git remote rename old_name new_name`| Rename an origin. |
+|`git remote set-url origin <url>`    | Change the Git origin remote.  |
 
 ## Git Ignore
-`touch .gitignore` to create the *gitignore* text. </br>
-Write the names of the files for *git* to ignore inside the *gitignore* file.
 
-Can add a folder directory into `.gitignore` as `/<folder directory>`
+- Create a `.gitignore` file in the root folder of the repository.
+- Write the names of the files for *git* to ignore inside the *gitignore* file.
+- Folders can be added as `/<folder directory>`
+- `*.txt` to include all *.txt* files inside `.gitignore`.
 
-`*.txt` to include all *.txt* files inside `.gitignore`.
+Sample `.gitiginore` file below.
+```
+# Workspace
+.vscode
 
-## Procedure for Local to Remote Repo
-`git init` initialises an empty git repo, creates *.git* file. <br>
-`git status` lists which files are staged, unstaged, modified. <br>
+# Python
+__pycache__
+.venv/
 
-`git add <file_name>` adds the specified file to the staging area. <br>
-`git add .` adds all the files in the folder to the staging area. Synonymous with `git stage`.
+# Media
+*.pdf
+*.jpg
+*.png
 
-`git reset <file_name>` removes file from the staging area. <br>
-`git reset` removes everything from the staging area. <br>
-`git reset --soft HEAD~1` to remove everything from the commit into the staging area.
-
-`git commit -m "Added new section"` commits to the branch. <br>
-`git log` shows the commits just made. <br>
-`git push` pushes to the remote repo. <br>
+# Autogenerated folders
+output/
+build/
+install/
+log/
+```
 
 ## Procedure from new local Repo to Remote Repo
 
 First, create a new repo on GitHub without any README, license or gitignore files.
 
-```
+Sample workflow.
+
+```bash
 git init -b main
 git add .
 git commit -m "Initial commit"
@@ -56,51 +118,53 @@ git remote set-url origin https://github.com/username/repository.git
 git push -u origin main
 ```
 
-## Procedure for Remote to Local Repo
-`git clone <url> <destination_dir>` make a copy of it at the specified local directory. <br>
-Use `.` to refer to the current directory.
+## Git Branch
 
-### View information about remote repo
-`git remote -v` view the remote repo. <br>
-`git branch -a` view all the branches. <br>
+| Commands           | Description                                            |
+| ------------------ | ------------------------------------------------------ |
+|`git branch`       | Lists all the local branches, with * as the active branch.|
+|`git branch -a`    | Lists all the branches, remote and local.               |
+|`git checkout feature1` | Change to the feature1 branch.                     |
+|`git branch feature2` | Creates a new branch called feature2.                |
+|`git branch -M old_name new_name`| Rename a branch.                          |
+|`git branch --merged` | List branches that have been merged so far.          |
 
-## Pushing changes
-`git diff` shows the changes made. <br>
-then the usual `git add`, `git commit`.
+Any commits to the local branch has no effect on local main branch or remote repo, and should be pushed by doing `git push`.
 
-`git pull origin master` pull any changes made to the repo since the last time it was pulled. <br>
-`git push origin master` push our changes <br>
-`origin`: name of remote repo <br>
-`master`: branch name
+## Git Merge
 
-## Create a branch for desired feature
-`git branch <branch_name>` creates a new branch with the specified name. <br>
-`git branch` lists all the local branches, and * the active branch. <br>
-`git branch -a` <br>
-`git checkout <branch_name>` to change to the specified branch.
+`git merge <branch_name>` merges the specified branch to the active branch, which is `main` in this case.
 
-Any commits to the local branch has no effect on local master branch or remote repo. Should perform the below:
+Sample Workflow
 
-`git push -u origin <branch_name>` pushes specified local branch to the remote repo.
+```bash
+git checkout main
+git pull origin main
+git merge feature1
+git push origin main
+```
 
-## Merge a branch
-`git checkout master` change to work on the master branch. <br>
-`git pull origin master` <br>
-`git branch --merged` shows the branches that have been merged so far. <br>
-`git merge <branch_name>` merges the specified branch to the active branch, which is master in this case. <br>
-`git push origin master` <br>
+Once merge is successful,  
 
-Once merge is successful, <br>
-`git branch -d <branch_name>` to delete branch locally. <br>
-`git push origin --delete <branch_name>` to delete branch in remote repo. <br>
+`git branch -d <branch_name>` to delete branch locally.  
 
-## Submodules
-A Git repo inside another git repo.<br>
-`git submodule add <url> ` to add the repo as a submodule to the local repo. <br>
-It clones the current version/commit of the git repo. <br>
+`git push origin --delete <branch_name>` to delete branch in remote repo.  
 
-## Misc
-*Esc* + `:wq` <br>
-`git remote add <repo_name> <url>` creates a new connection to the remote repo. <br>
-`git remote set-url origin <url>` to change the Git origin remote. <br>
+## Git Rebase
 
+Do not use interactive rebase on commits that have been pushed to a shared repository. Used for cleaning local history commit before pushing.
+
+`git rebase -i HEAD~3` to have an interactive window including up to 3 commits before. Think of `~` as minus.
+
+- `squash`: combines 2 commits into 1
+- `reword`: change commit message
+- `edit`, `pick`, `drop`, `reset`, etc.
+
+## Git Submodules
+
+To include a Git repo inside another git repo. The submodule should not be modified. It clones the current version/commit of the git repo.  
+
+| Commands           | Description                                            |
+| ------------------ | ------------------------------------------------------ |
+|`git submodule add <url>`| Add the repo as a submodule to the local repo.    |
+|`git submodule update --init --recursive` | To set up the submodules in your repository.|
